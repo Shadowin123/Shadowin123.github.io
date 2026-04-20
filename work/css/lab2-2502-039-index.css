@@ -1,0 +1,342 @@
+
+* {
+    margin: 0;                
+    padding: 0;               /* 盒子模型-内边距 */
+    box-sizing: border-box;   /* 核心盒子模型规则：border/padding计入宽高，不撑大容器 */
+    list-style: none;
+    text-decoration: none;
+}
+
+/* 清除浮动工具类：解决浮动导致的父容器高度塌陷 */
+.clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* 全局基础样式 */
+body {
+    font-family: "Microsoft Yahei", sans-serif;
+    color: #333;
+    background-color: #f5f5f5;
+    padding-top: 80px; /* 给固定定位的头部预留空间，避免内容被遮挡 */
+}
+
+/* ==================== 1. 头部区域：固定定位+浮动布局 对应要求3、4 ==================== */
+.header {
+    width: 100%;
+    height: 80px;
+    background-color: #fff;
+    border-bottom: 2px solid #d62828; /* 盒子模型-边框 */
+    /* 固定定位 对应要求4 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999; /* 确保在最上层，不被其他内容遮挡 */
+    padding: 0 50px; /* 盒子模型-内边距 */
+}
+
+/* Logo 左浮动 对应要求3 */
+.header .logo {
+    float: left;
+    height: 80px;
+    line-height: 80px;
+}
+
+/* 顶部导航 右浮动 对应要求3 */
+.top-nav {
+    float: right;
+    height: 80px;
+}
+
+.nav-list li {
+    float: left;
+    height: 80px;
+    line-height: 80px;
+    margin: 0 20px; /* 盒子模型-外边距 */
+}
+
+.nav-list li a {
+    color: #333;
+    font-size: 16px;
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+.nav-list li a:hover {
+    color: #d62828;
+}
+
+/* ==================== 2. 主体三栏浮动布局 对应要求3 ==================== */
+.main {
+    width: 1200px;
+    margin: 20px auto; /* 盒子模型-外边距，实现水平居中 */
+}
+
+/* ---------- 左侧栏：图书分类导航 相对定位 对应要求4 ---------- */
+.left-sidebar {
+    width: 200px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee; /* 盒子模型-边框 */
+    padding: 20px 15px; /* 盒子模型-内边距 */
+    float: left; /* 浮动布局 对应要求3 */
+    /* 相对定位 对应要求4 */
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.left-sidebar h3 {
+    font-size: 18px;
+    color: #d62828;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+
+.category-menu li {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    border-radius: 4px;
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+.category-menu li a {
+    color: #333;
+    font-size: 14px;
+}
+
+.category-menu li:hover {
+    background-color: #fff0f0;
+}
+
+.category-menu li:hover a {
+    color: #d62828;
+}
+
+/* ---------- 中间栏：核心内容区 ---------- */
+.content-center {
+    width: 740px;
+    float: left; /* 浮动布局 对应要求3 */
+    margin: 0 20px; /* 盒子模型-外边距，实现三栏间距 */
+}
+
+/* 通用区块样式 盒子模型全覆盖 */
+.book-show, .hot-recommend, .new-book {
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee; /* 盒子模型-边框 */
+    padding: 20px; /* 盒子模型-内边距 */
+    margin-bottom: 20px; /* 盒子模型-外边距 */
+}
+
+.content-center h3 {
+    font-size: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+/* 图书展示区 父相子绝+hover显示隐藏 对应要求4、5 */
+.book-item {
+    width: 160px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    /* 父相：相对定位 作为子绝的参照物 对应要求4 */
+    position: relative;
+    border: 1px solid #eee; /* 盒子模型-边框 */
+    border-radius: 4px;
+    padding: 10px; /* 盒子模型-内边距 */
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+/* 清除每行最后一个元素的右外边距 */
+.book-item:nth-child(4n) {
+    margin-right: 0;
+}
+
+.book-cover {
+    width: 140px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.book-name {
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.book-price {
+    color: #d62828;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* 子绝：绝对定位遮罩层 对应要求4 */
+.book-hover-mask {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 4px;
+    /* 绝对定位 相对于父级book-item */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* 默认隐藏 hover显示 对应要求5 */
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+/* hover显示隐藏 核心效果 对应要求5 */
+.first-book:hover .book-hover-mask {
+    display: flex;
+}
+
+.book-hover-mask p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.buy-btn {
+    width: 100px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    background-color: #d62828;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* 热门推荐：浮动排列 对应要求3 */
+.hot-item {
+    width: 160px;
+    float: left;
+    margin-right: 20px;
+    text-align: center;
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+.hot-item:nth-child(4n) {
+    margin-right: 0;
+}
+
+.hot-item img {
+    width: 140px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.hot-item p {
+    font-size: 14px;
+}
+
+.hot-item:hover p {
+    color: #d62828;
+}
+
+/* 新书上市：Table布局 对应要求 */
+.new-book-table {
+    width: 100%;
+    border-collapse: collapse; /* 合并表格边框 */
+    text-align: center;
+}
+
+.new-book-table th, .new-book-table td {
+    border: 1px solid #eee; /* 盒子模型-边框 */
+    padding: 12px 8px; /* 盒子模型-内边距 */
+    font-size: 14px;
+}
+
+.new-book-table th {
+    background-color: #fff0f0;
+    color: #d62828;
+    font-weight: bold;
+}
+
+.new-book-table tr:hover {
+    background-color: #f9f9f9;
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+/* ---------- 右侧栏：促销信息 固定定位 对应要求4 ---------- */
+.right-sidebar {
+    width: 220px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee; /* 盒子模型-边框 */
+    padding: 20px 15px; /* 盒子模型-内边距 */
+    /* 固定定位 不随滚动条滚动 对应要求4 */
+    position: fixed;
+    top: 100px;
+    right: calc((100% - 1200px) / 2); /* 和主体版心对齐，适配不同屏幕 */
+    z-index: 998;
+}
+
+.right-sidebar h3 {
+    font-size: 18px;
+    color: #d62828;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+}
+
+.promo-card {
+    margin-bottom: 15px;
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+.promo-card img {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 8px;
+}
+
+.promo-card p {
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.promo-card:hover p {
+    color: #d62828;
+}
+
+.service-btn {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #d62828;
+    color: #fff;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer; /* 鼠标手型 对应要求5 */
+}
+
+.service-btn:hover {
+    background-color: #b81e1e;
+}
+
+/* ==================== 页脚区域 ==================== */
+.footer {
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    padding: 30px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+    margin-top: 20px;
+}
