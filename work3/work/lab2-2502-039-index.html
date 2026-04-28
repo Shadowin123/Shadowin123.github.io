@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图书商城-网页布局实验</title>
+    <link rel="stylesheet" href="css/lab2-2502-039-index.css">
+    <style>
+        .login-btn {
+            float: right;
+            line-height: 80px;
+            cursor: pointer;
+            color: #333;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover { color: #333; }
+
+        .login-form h3, .register-form h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-form input, .register-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .login-form button, .register-form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-form button:hover, .register-form button:hover { background-color: #218838; }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 15px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .switch-form:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <header class="header clearfix">
+        <div class="logo">
+            <img src="img/LOGO.jpg" alt="网站Logo" width="120">
+        </div>
+        <nav class="top-nav">
+            <ul class="nav-list">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">图书分类</a></li>
+                <li><a href="#">新书上市</a></li>
+                <li><a href="#">畅销榜单</a></li>
+                <li><a href="#">个人中心</a></li>
+            </ul>
+        </nav>
+        <div class="login-btn" id="loginBtn">登录/注册</div>
+    </header>
+
+    <main class="main clearfix">
+        <aside class="left-sidebar">
+            <h3>图书分类</h3>
+            <ul class="category-menu">
+                <li><a href="#">文学小说</a></li>
+                <li><a href="#">人文社科</a></li>
+                <li><a href="#">科技计算机</a></li>
+                <li><a href="#">经济管理</a></li>
+                <li><a href="#">少儿读物</a></li>
+                <li><a href="#">生活休闲</a></li>
+                <li><a href="#">艺术设计</a></li>
+                <li><a href="#">教育考试</a></li>
+            </ul>
+        </aside>
+
+        <section class="content-center">
+            <div class="book-show">
+                <h3>精选好书</h3>
+                <ul class="book-list clearfix">
+                    <li class="book-item first-book">
+                        <img src="img/book1.jpg" alt="图书封面" class="book-cover">
+                        <div class="book-hover-mask">
+                            <p>限时特惠 8折</p>
+                            <a href="#" class="buy-btn">立即抢购</a>
+                        </div>
+                        <p class="book-name">云边有个小卖部</p>
+                        <p class="book-price">¥42.00</p>
+                    </li>
+                    <li class="book-item">
+                        <img src="img/book2.jpg" alt="图书封面" class="book-cover">
+                        <p class="book-name">长安的荔枝</p>
+                        <p class="book-price">¥45.00</p>
+                    </li>
+                    <li class="book-item">
+                        <img src="img/book3.jpg" alt="图书封面" class="book-cover">
+                        <p class="book-name">蛤蟆先生去看心理医生</p>
+                        <p class="book-price">¥49.80</p>
+                    </li>
+                    <li class="book-item">
+                        <img src="img/book4.jpg" alt="图书封面" class="book-cover">
+                        <p class="book-name">人类简史</p>
+                        <p class="book-price">¥68.00</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="hot-recommend">
+                <h3>热门推荐</h3>
+                <ul class="hot-list clearfix">
+                    <li class="hot-item">
+                        <img src="img/book5.jpg" alt="热门图书">
+                        <p>被讨厌的勇气</p>
+                    </li>
+                    <li class="hot-item">
+                        <img src="img/book6.jpg" alt="热门图书">
+                        <p>解忧杂货店</p>
+                    </li>
+                    <li class="hot-item">
+                        <img src="img/book7.jpg" alt="热门图书">
+                        <p>白夜行</p>
+                    </li>
+                    <li class="hot-item">
+                        <img src="img/book8.jpg" alt="热门图书">
+                        <p>三体全集</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="new-book">
+                <h3>新书上市</h3>
+                <table class="new-book-table">
+                    <thead>
+                        <tr>
+                            <th>榜单</th>
+                            <th>书名</th>
+                            <th>作者</th>
+                            <th>定价</th>
+                            <th>上市时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>额尔古纳河右岸</td>
+                            <td>迟子建</td>
+                            <td>¥59.00</td>
+                            <td>2024-01</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>置身事内</td>
+                            <td>兰小欢</td>
+                            <td>¥59.00</td>
+                            <td>2024-02</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>明朝那些事儿</td>
+                            <td>当年明月</td>
+                            <td>¥297.00</td>
+                            <td>2024-03</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>杀死一只知更鸟</td>
+                            <td>哈珀·李</td>
+                            <td>¥58.00</td>
+                            <td>2024-03</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <aside class="right-sidebar">
+            <h3>限时促销</h3>
+            <div class="promo-card">
+                <img src="img/促销.jpg" alt="促销活动">
+                <p>全场满99减20</p>
+            </div>
+            <div class="promo-card">
+                <img src="img/85折.jpg" alt="促销活动">
+                <p>会员专享85折</p>
+            </div>
+            <div class="promo-card">
+                <img src="img/预售.jpg" alt="促销活动">
+                <p>新书预售立减15</p>
+            </div>
+            <div class="service-btn">在线客服</div>
+        </aside>
+    </main>
+
+    <footer class="footer">
+        <p>©2024 网页布局实验 | 图书商城页面 版权所有</p>
+    </footer>
+
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeBtn">&times;</span>
+            
+            <div class="login-form" id="loginForm">
+                <h3>用户登录</h3>
+                <input type="text" id="loginUsername" placeholder="请输入用户名">
+                <input type="password" id="loginPassword" placeholder="请输入密码">
+                <button id="loginSubmit">立即登录</button>
+                <p class="switch-form" id="toRegister">没有账号？去注册</p>
+            </div>
+
+            <div class="register-form" id="registerForm" style="display:none;">
+                <h3>用户注册</h3>
+                <input type="text" id="regUsername" placeholder="设置用户名">
+                <input type="password" id="regPassword" placeholder="设置密码">
+                <input type="password" id="regConfirmPassword" placeholder="确认密码">
+                <button id="registerSubmit">完成注册</button>
+                <p class="switch-form" id="toLogin">已有账号？去登录</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeBtn = document.getElementById('closeBtn');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const toRegister = document.getElementById('toRegister');
+        const toLogin = document.getElementById('toLogin');
+        const registerSubmit = document.getElementById('registerSubmit');
+        const loginSubmit = document.getElementById('loginSubmit');
+
+        loginBtn.addEventListener('click', () => loginModal.style.display = 'block');
+        closeBtn.addEventListener('click', () => loginModal.style.display = 'none');
+        loginModal.addEventListener('click', (e) => e.target === loginModal && (loginModal.style.display = 'none'));
+
+        toRegister.addEventListener('click', () => {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+        });
+        toLogin.addEventListener('click', () => {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        });
+
+        registerSubmit.addEventListener('click', () => {
+            const username = document.getElementById('regUsername').value.trim();
+            const password = document.getElementById('regPassword').value.trim();
+            const confirmPwd = document.getElementById('regConfirmPassword').value.trim();
+
+            if (!username || !password || !confirmPwd) return alert('请填写完整信息！');
+            if (password !== confirmPwd) return alert('两次密码输入不一致！');
+
+            const users = JSON.parse(localStorage.getItem('bookstore_users')) || [];
+            
+            if (users.some(user => user.username === username)) {
+                return alert('用户名已被注册！');
+            }
+
+            users.push({ username, password });
+            localStorage.setItem('bookstore_users', JSON.stringify(users));
+            
+            alert('注册成功！请登录');
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+            document.getElementById('regUsername').value = '';
+            document.getElementById('regPassword').value = '';
+            document.getElementById('regConfirmPassword').value = '';
+        });
+
+        loginSubmit.addEventListener('click', () => {
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+
+            if (!username || !password) return alert('请输入用户名和密码！');
+
+            const users = JSON.parse(localStorage.getItem('bookstore_users')) || [];
+            const validUser = users.find(user => user.username === username && user.password === password);
+
+            if (validUser) {
+                alert(`登录成功！欢迎 ${username}`);
+                loginModal.style.display = 'none';
+                loginBtn.textContent = `欢迎，${username}`;
+            } else {
+                alert('用户名或密码错误！');
+            }
+        });
+    </script>
+</body>
+</html>
